@@ -1,0 +1,37 @@
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "dagster_university"
+version = "0.1.0"
+description = ""
+authors = ["Salim Serhan <salim.serhan@maersk.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "3.11"
+dagster = "^1.8.11"
+kaleido = "0.2.1"
+dagster-webserver = "^1.8.11"
+dagster-duckdb = "^0.24.11"
+
+
+[tool.ruff]
+extend = "../../pyproject.toml"
+
+[tool.dagster]
+module_name = "dagster_university"
+
+[tool.ruff.lint]
+extend-ignore = [
+
+  # (Unused import): We stub some files with just imports to help people get started
+  "F401",    
+  # (Import block is un-sorted or un-formatted): It's more important that we introduce the imports in the order they're used rather than alphabetically.
+  "I001",
+
+  # (relative imports): relative imports are acceptable in examples & docs
+  "TID252"
+
+]

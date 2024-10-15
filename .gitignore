@@ -1,0 +1,9 @@
+.idea/
+data/
+*.pyc
+*.parquet
+*.csv
+*.duckdb
+*.*json
+*.db*
+/tmp*
