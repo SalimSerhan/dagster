@@ -1,0 +1,37 @@
+name: Build and Push Docker Image to GCR
+
+on:
+  push:
+    branches:
+      - main  # Change this to your desired branch
+  workflow_dispatch: # Allows manual trigger from the Actions tab
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Set up Google Cloud SDK
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          project_id: angelic-hold-438714-g4 # Replace with your project ID
+
+      # Authenticate Docker to GCR
+      - name: Authenticate Docker to GCR
+        run: gcloud auth configure-docker
+
+      # Build the Docker image
+      - name: Build Docker Image
+        run: |
+          docker build -t gcr.io/angelic-hold-438714-g4/your-image-name:latest .
+
+      # Push the Docker image to GCR
+      - name: Push Docker Image
+        run: |
+          docker push gcr.io/your-gcp-project-id/dagster:latest
